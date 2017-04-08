@@ -139,8 +139,7 @@ addressing_service::addressing_service(
   , runtime_type(runtime_type_)
   , caching_(ini_.get_agas_caching_mode())
   , range_caching_(caching_ ? ini_.get_agas_range_caching_mode() : false)
-  , action_priority_(ini_.get_agas_dedicated_server() ?
-        threads::thread_priority_normal : threads::thread_priority_boost)
+  , action_priority_(threads::thread_priority_boost)
   , rts_lva_(0)
   , mem_lva_(0)
   , state_(state_starting)
@@ -384,9 +383,7 @@ parcelset::endpoints_type const & addressing_service::resolve_locality(
                 HPX_THROWS_IF(ec, bad_parameter,
                     "addressing_service::resolve_locality",
                     strm.str());
-
-                static parcelset::endpoints_type empty_endpoints;
-                return empty_endpoints;
+                return resolved_localities_[naming::invalid_gid];
             }
         }
 
