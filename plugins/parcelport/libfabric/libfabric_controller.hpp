@@ -193,7 +193,7 @@ namespace libfabric
                 std::string pmi_key = "hpx_libfabric_" + std::to_string(i);
                 char encoded_data[encoded_length + 1] = {0};
                 int length = 0;
-                PMI2_KVS_Get(0, 0, pmi_key.data(), encoded_data, encoded_length + 1, &length);
+                PMI2_KVS_Get(0, i, pmi_key.data(), encoded_data, encoded_length + 1, &length);
                 if (length != encoded_length)
                 {
                     LOG_ERROR_MSG("PMI value length mismatch, expected "
